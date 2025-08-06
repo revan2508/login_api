@@ -1,0 +1,90 @@
+import 'package:flutter/material.dart';
+import 'package:xii_rpl_3/models/album_model.dart';
+import 'package:xii_rpl_3/services/album_services.dart';
+
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Album API Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const AlbumListScreen(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class AlbumListScreen extends StatelessWidget {
+  const AlbumListScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Daftar Album'),
+        centerTitle: true,
+      ),
+      body: FutureBuilder<List<AlbumModel>>(
+        future: AlbumService.fetchAlbum(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Terjadi kesalahan: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(child: Text('Data album kosong'));
+          }
+
+          final albums = snapshot.data!;
+
+          return ListView.builder(
+            itemCount: albums.length,
+            itemBuilder: (context, index) {
+              final album = albums[index];
+              return ListTile(
+                leading: Text((album.id.toString())),
+                title: Text(album.title),
+                subtitle: Text('User ID: ${album.userId}'),
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
+}
+
+
+//jadwal sholat
+import 'package:flutter/material.dart';
+import 'screens/sholat_list_screen.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Jadwal Sholat',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+        fontFamily: 'Scheherazade',
+      ),
+      home: const SholatListScreen(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
