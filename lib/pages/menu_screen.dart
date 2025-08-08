@@ -3,6 +3,8 @@ import 'package:xii_rpl_3/pages/home_screen.dart';
 import 'package:xii_rpl_3/pages/product/product_list_screen.dart';
 import 'package:xii_rpl_3/pages/profile_screen.dart';
 import 'package:xii_rpl_3/pages/post/list_post_screen.dart';
+import 'package:xii_rpl_3/pages/produk/produk_list.dart';
+
 
 
 class MenuScreen extends StatefulWidget {
@@ -19,6 +21,7 @@ class _MenuScreenState extends State<MenuScreen> {
     HomeScreen(),
     ListPostScreen(),
     ProductListScreen(),
+    ProdukListScreen(),
     ProfileScreen(),
   ];
 
@@ -40,6 +43,10 @@ class _MenuScreenState extends State<MenuScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart),
             label: 'Produk',
+          ),
+           BottomNavigationBarItem(
+            icon: Icon(Icons.local_mall),
+            label: 'Produk Api',
           ),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
